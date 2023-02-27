@@ -5,7 +5,7 @@ metrics = evaluate.load('bertscore')
 
 import pandas as pd
 # df = pd.read_csv('data/new.txt', names=["Output1", "Output2", "Output3", "Output4", "Truth"])
-df = pd.read_csv('data/output_corrupted.csv')
+df = pd.read_csv('data/result.csv')
 
 final_scores = []
 for _, row in df.iterrows():
