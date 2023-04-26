@@ -24,7 +24,7 @@ if __name__ == "__main__":
     ter = evaluate.load('ter')
 
     # dataset: opusparcus_input | pawsx_input
-    path = "eval_dataset/opusparcus_input"
+    path = "eval_dataset/pawsx_input"
     langs = os.listdir(path)
     for lang in langs:
         print(f"Lang: {lang}")
