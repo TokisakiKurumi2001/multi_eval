@@ -21,12 +21,15 @@ if __name__ == "__main__":
     parascore = evaluate.load('metrics/parascore.py')
     bert_ibleu = evaluate.load('metrics/bert_ibleu.py')
     sacrebleu = evaluate.load('sacrebleu')
+    selfbleu = evaluate.load('sacrebleu')
     ter = evaluate.load('ter')
 
     # dataset: opusparcus_input | pawsx_input
-    path = "eval_dataset/pawsx_input"
+    path = "eval_dataset/opusparcus_input"
     langs = os.listdir(path)
     for lang in langs:
+        if lang != 'ru':
+            continue
         print(f"Lang: {lang}")
         filename = f'{path}/{lang}/result.csv'
         df = pd.read_csv(filename)
@@ -65,6 +68,18 @@ if __name__ == "__main__":
             tokenize=tokenizer,
         )
         print(f"SacreBLEU: {sacrebleu_scores['score']}")
+        if lang == 'zh':
+            tokenizer = 'zh'
+        elif lang == 'ja':
+            tokenizer = 'ja-mecab'
+        else:
+            tokenizer = '13a'
+        selfbleu_scores = selfbleu.compute(
+            predictions=df['prediction'],
+            references=df['input'],
+            tokenize=tokenizer,
+        )
+        print(f"SelfBLEU: {selfbleu_scores['score']}")
         ter_scores = ter.compute(
             predictions=df['prediction'],
             references=df['reference'],
