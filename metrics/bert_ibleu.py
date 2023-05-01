@@ -122,7 +122,7 @@ class BERT_iBLEU(evaluate.Metric):
 
         beta = 4.0
 
-        scores = [((beta * (sem**(-1)) + 1.0 * ((max(1.0 - lex, 1e-5))**(-1)))/(beta + 1.0))**(-1) for sem, lex in zip(sem_score, self_bleu)]
+        scores = [((beta * (max(sem, 1e-5)**(-1)) + 1.0 * ((max(1.0 - lex, 1e-5))**(-1)))/(beta + 1.0))**(-1) for sem, lex in zip(sem_score, self_bleu)]
         return {
             "score": scores,
         }
