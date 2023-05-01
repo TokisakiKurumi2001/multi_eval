@@ -25,14 +25,13 @@ if __name__ == "__main__":
     ter = evaluate.load('ter')
 
     # dataset: opusparcus_input | pawsx_input
-    path = "eval_dataset/opusparcus_input"
+    path = "eval_dataset/pawsx_input"
     langs = os.listdir(path)
     for lang in langs:
-        if lang != 'ru':
-            continue
         print(f"Lang: {lang}")
         filename = f'{path}/{lang}/result.csv'
         df = pd.read_csv(filename)
+        df.fillna('', inplace=True)
         bertscore_scores = bertscore.compute(
             predictions=df['prediction'],
             references=df['input'],

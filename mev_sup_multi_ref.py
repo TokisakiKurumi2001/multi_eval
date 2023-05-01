@@ -33,6 +33,7 @@ if __name__ == "__main__":
         print(f"Lang: {lang}")
         filename = f'{path}/{lang}/result.csv'
         df = pd.read_csv(filename)
+        df.fillna('', inplace=True)
         bertscore_scores = bertscore.compute(
             predictions=df['prediction'],
             references=df['input'],
